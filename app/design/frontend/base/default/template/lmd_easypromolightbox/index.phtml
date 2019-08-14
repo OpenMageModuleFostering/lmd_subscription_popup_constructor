@@ -1,0 +1,166 @@
+<?php
+/**
+ * Copyright (C) 2015  LMD Agency (alex)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright   Copyright (c) 2015 LMD Agency (http://www.lmd-agency.com)
+ * @license     http://www.gnu.org/licenses/  GNU General Public License (Version 3)
+ */
+$lb = $this->getLigthboxInfo();
+
+/**
+ * Getting last lightbox that has no cookie...
+ */
+
+foreach ($lb as $notification) {
+    $name = 'lightbox' . $notification['entity_id'];
+    if (strtotime(htmlspecialchars($_COOKIE["$name"])) != strtotime($notification['edit_date'])) {
+        $lightbox = $notification;
+        break;
+    } else $lightbox = NULL;
+}
+
+/**
+ * if any is found, it will be shown
+ */
+
+if ($lightbox) {
+    $basedomain = str_replace(array("http://", "https://"), "", Mage::getBaseUrl());
+    $basedomain = str_replace("index.php", "", $basedomain);
+    $basedomain = str_replace("//", "", $basedomain);
+    $basedomain = str_replace("/", "", $basedomain);
+    $domain_url = '.' . $basedomain;
+    $marginhorizontal = $lightbox['notification_width'] / 2;
+    $domain = Mage::getBaseUrl();
+    if (substr_count($domain, 'index.php') != 0)
+        $domain = str_replace("index.php/", "", $domain);
+?>
+
+    <div id="overlay"></div>
+    <div id="container">
+        <?php if ($lightbox['body_type'] == 1): ?>
+        <div id="popup"
+             style="margin-left: <?php echo '-' . $marginhorizontal . 'px'; ?>;
+                 background: <?php echo '#' . $lightbox['body_color']; ?>;
+                 height: <?php echo $lightbox['notification_height'] . 'px'; ?>;
+                 width: <?php echo $lightbox['notification_width'] . 'px'; ?>">
+        <?php else: ?>
+        <div id="popup"
+             style="margin-left: <?php echo '-' . $marginhorizontal . 'px'; ?>;
+                 background: <?php echo 'url(' . $domain . 'media/' . $lightbox['body_picture'] . ')'; ?>;
+                 background-size: <?php echo $lightbox['notification_width'] . 'px'; ?> <?php echo $lightbox['notification_height'] . 'px'; ?>;
+                 height: <?php echo $lightbox['notification_height'] . 'px'; ?>;
+                 width: <?php echo $lightbox['notification_width'] . 'px'; ?>">
+        <?php endif; ?>
+            <div id="bar">
+                <span id="close">Close</span>
+            </div>
+            <div id="title">
+                    <span id="popup-title"
+                          style="color: <?php echo '#' . $lightbox['title_text_color']; ?>"><?php echo $lightbox['title_text']; ?></span>
+            </div>
+            <div id="body">
+                <h2><span id="popup-title"
+                          style="color: <?php echo '#' . $lightbox['notification_text_color']; ?>"><?php echo $lightbox['notification_text']; ?></span>
+                </h2>
+                <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+                    <input type="text" id="subscribe-email" name="subscribe[email]" class="validate-email">
+                <?php else : ?>
+                    <?php $customerEmail = Mage::getSingleton('customer/session')->getCustomer()->getEmail(); ?>
+                    <input type="hidden" id="subscribe-email" value="<?php echo $customerEmail; ?>"/>
+                <?php endif; ?>
+                <button name="allow" class="lightbox-subscribe"
+                        style="background-color: <?php echo '#' . $lightbox['button_color']; ?>"
+                        onclick="subscribe('<?php echo Mage::helper('adminhtml')->getUrl('lightbox/lightbox/subscribe') ?>')"> <?php echo $lightbox['button_text']; ?></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">// <![CDATA[
+
+        document.observe("dom:loaded", function () {
+            showLightbox.delay(<?php echo $lightbox['time_to_show']; ?>);
+        });
+
+        $('close').observe('click', function () {
+            closeAndSet();
+        });
+
+        $('overlay').observe('click', function () {
+            closeAndSet();
+        });
+
+        function showLightbox() {
+            $('overlay').setStyle({display: 'block'});
+            $('container').setStyle({display: 'block'});
+        }
+
+        /**
+         * Ajax request to controller for
+         * subscribe customer
+         */
+        function subscribe(url) {
+            var email = $('subscribe-email').value;
+            new Ajax.Request(url, {
+                method: 'post',
+                parameters: {email: email},
+                onSuccess: function (response) {
+                    var json = response.responseText.evalJSON(true);
+                    console.log(json);
+                    alert(json[1]);
+                    if (json[2] == true) {
+                        closeAndSet()
+                    }
+                }
+            });
+        }
+
+        function closeAndSet() {
+            $('overlay').setStyle({display: 'none'});
+            $('container').setStyle({display: 'none'});
+            var now = new Date();
+            var time = now.getTime();
+            time +=
+            <?php echo $lightbox['cookies_lifetime']; ?> *
+            1000 * 60 * 60 * 24;
+            now.setTime(time);
+            setCookie('<?php echo 'lightbox' . $lightbox['entity_id']; ?>', '<?php echo $lightbox['edit_date']; ?>', now.toUTCString(), '<?php echo $domain_url; ?>', '/');
+        }
+
+        function setCookie(name, value, expires, domain, path, secure) {
+            document.cookie = name + "=" + escape(value) +
+            ((expires) ? "; expires=" + expires : "") +
+            ((path) ? "; path=" + path : "") +
+            ((domain) ? "; domain=" + domain : "") +
+            ((secure) ? "; secure" : "");
+        }
+
+        /**
+         * Some unused junk
+         * If you don't need it, just remove=)
+         */
+        function getCookie(name) {
+            var start = document.cookie.indexOf(name + "=");
+            var len = start + name.length + 1;
+            if (( !start ) && ( name != document.cookie.substring(0, name.length) )) {
+                return null;
+            }
+            if (start == -1) return null;
+            var end = document.cookie.indexOf(';', len);
+            if (end == -1) end = document.cookie.length;
+            return unescape(document.cookie.substring(len, end));
+        }
+        // ]]></script>
+<?php } ?>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!--<lmd_easypromolightbox_lightbox_index>-->
+        <!--<reference name="content">-->
+            <!--<block type="lmd_easypromolightbox/frontend_lightbox" name="lightbox.popup"-->
+                   <!--template="lmd_easypromolightbox/index.phtml"/>-->
+        <!--</reference>-->
+    <!--</lmd_easypromolightbox_lightbox_index>-->
+
+    <default>
+        <reference name="after_body_start">
+            <block type="lmd_easypromolightbox/frontend_lightbox" name="lightbox.popup"
+                   template="lmd_easypromolightbox/index.phtml" after="-"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <name>css/lmd_easypromolightbox.css</name>
+            </action>
+            <!---->
+            <!--<action method="addJs">-->
+                <!--<script>prototype/window.js</script>-->
+            <!--</action>-->
+            <!--<action method="addCss">-->
+                <!--<stylesheet>prototype/windows/themes/default.css</stylesheet>-->
+            <!--</action>-->
+            <!--<action method="addItem">-->
+                <!--<type>js_css</type>-->
+                <!--<name>prototype/windows/themes/default.css</name>-->
+            <!--</action>-->
+            <!--<action method="addItem">-->
+                <!--<type>js_css</type>-->
+                <!--<name>prototype/windows/themes/magento.css</name>-->
+            <!--</action>-->
+            <!---->
+        </reference>
+    </default>
+</layout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <adminhtml_lightbox_index>
+        <reference name="content">
+            <!--In the content we add our grid container-->
+            <block type="lmd_easypromolightbox/adminhtml_grid_gridcontainer" name="notification_grid"/>
+        </reference>
+    </adminhtml_lightbox_index>
+    <adminhtml_lightbox_edit>
+        <reference name="head">
+            <action method="addjs">
+                <file>jscolor/jscolor.js</file>
+            </action>
+        </reference>
+    </adminhtml_lightbox_edit>
+</layout>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <lmd_easypromolightbox>
+            <title>LMD Promo Lightbox</title>
+            <sort_order>80</sort_order>
+            <children>
+                <list>
+                    <title>Manage</title>
+                    <action>adminhtml/lightbox/index</action>
+                </list>
+            </children>
+        </lmd_easypromolightbox>
+    </menu>
+</config>

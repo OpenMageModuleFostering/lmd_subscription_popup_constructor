@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>LMD_subscription_popup_constructor</name>
+    <version>0.1.0</version>
+    <stability>stable</stability>
+    <license uri="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>LMD newsletter subscription popup constructor</summary>
+    <description>Magento does not provide an easy way to subscribe to the newsletter so far. This extension gives you the opportunity. A pop-up window with the information that you want to tell the client - what could be easier? And if the customer will be interested in your offer, he will be able to subscribe to your newsletter.</description>
+    <notes>If you find any bugs, please report us!</notes>
+    <authors><author><name>LMD Agency</name><user>Alexander</user><email>aborodavkin@gmail.com</email></author></authors>
+    <date>2015-02-18</date>
+    <time>11:53:07</time>
+    <contents><target name="magelocal"><dir name="LMD"><dir name="EasyPromoLightBox"><dir name="Block"><dir name="Adminhtml"><dir name="Form"><dir name="Edit"><file name="Form.php" hash="a963c9642ed68f05814cce8e107e7261"/></dir><file name="Formcontainer.php" hash="793f395cdaf0051ba6c41f2f3948f82d"/></dir><dir name="Grid"><file name="Grid.php" hash="aafce276909e3ae6aff819fe9f5fff08"/><file name="Gridcontainer.php" hash="04153b4ec04613288c57db11b6c95116"/><dir name="Renderer"><file name="Active.php" hash="8a1f99931ddd3fa56c7d95b7607da497"/></dir></dir></dir><dir name="Frontend"><file name="Lightbox.php" hash="4be698cb28b01489d34e30cdb0d3f9d6"/></dir></dir><dir name="Helper"><file name="Data.php" hash="98034fe4af6f7b40e1a3d4c214c3f203"/></dir><dir name="Model"><file name="Lightbox.php" hash="bef4874325d177dddd317e28a2cb6c04"/><dir name="Mysql4"><dir name="Lightbox"><file name="Collection.php" hash="b1d67302e3afd4e682cbca082a0b4fc2"/></dir><file name="Lightbox.php" hash="5bd84b1fb3cba2cb0f87b52bb9c3b32d"/></dir></dir><dir name="controllers"><dir name="Adminhtml"><file name="LightboxController.php" hash="0ca592aa1bd5f2fe5a4887fbb3d7fce7"/></dir><file name="LightboxController.php" hash="56ea3e5aa0871c3cdc0ef30ad2cb93a3"/></dir><dir name="etc"><file name="adminhtml.xml" hash="14f13a93e07e88b7d0c842446c661866"/><file name="config.xml" hash="cb57af5378156ccc43b2f81e27533518"/></dir><dir name="sql"><dir name="lmd_easypromolightbox_setup"><file name="install-0.1.0.php" hash="ea2bdaf2da9094805f086e096eba0538"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="lmd_easypromolightbox.xml" hash="c0d8f8e98ecb7d8fae08b3f13decc7f9"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="lmd_easypromolightbox.xml" hash="54cf97a9c3e3f27d00a9540329566245"/></dir><dir name="template"><dir name="lmd_easypromolightbox"><file name="index.phtml" hash="c1190bf4c9c823436888b19c6dcaa82a"/></dir></dir></dir></dir></dir></target><target name="mageskin"><dir name="frontend"><dir name="base"><dir name="default"><dir name="css"><file name="lmd_easypromolightbox.css" hash="114a300c36200ef94216b2b18830bb2d"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="LMD_EasyPromoLightBox.xml" hash="d19dd61ec41ed0b13f63a041e9985984"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

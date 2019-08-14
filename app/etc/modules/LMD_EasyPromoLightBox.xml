@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <LMD_EasyPromoLightBox>
+            <active>true</active>
+            <codePool>local</codePool>
+        </LMD_EasyPromoLightBox>
+    </modules>
+</config>

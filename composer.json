@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/LMD_subscription_popup_constructor",
+    "type": "magento-module",
+    "license": "GPL",
+    "homepage": "",
+    "description": "LMD newsletter subscription popup constructor",
+    "authors": [
+    {
+        "name": "LMD Agency",
+        "email": "aborodavkin@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
